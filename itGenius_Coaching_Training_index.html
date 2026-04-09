@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>itGenius — Leader's Coaching Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #083344;
+    --ink-2: #155E75;
+    --aqua: #06B6D4;
+    --aqua-dk: #0891B2;
+    --aqua-soft: #ECFEFF;
+    --aqua-line: #A5F3FC;
+    --paper: #F5FCFD;
+    --white: #FFFFFF;
+    --muted: #64748B;
+    --rule: #E0F2F7;
+    --good: #0E9F6E;
+    --warn: #D97706;
+    --bad: #DC2626;
+    --shadow: 0 1px 2px rgba(8,51,68,0.04), 0 8px 24px rgba(8,51,68,0.06);
+    --shadow-lg: 0 4px 8px rgba(8,51,68,0.06), 0 24px 48px rgba(8,51,68,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter Tight', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  .hero {
+    background: linear-gradient(160deg, #ECFEFF 0%, #CFFAFE 60%, #A5F3FC 100%);
+    color: var(--ink);
+    padding: 80px 0 100px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--aqua-line);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(6,182,212,0.18), transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(8,145,178,0.10), transparent 45%);
+    pointer-events: none;
+  }
+  .brand-bar {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--aqua-dk); font-weight: 700;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .brand-bar::before { content: ''; width: 28px; height: 2px; background: var(--aqua); }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    position: relative;
+    color: var(--ink);
+  }
+  .hero h1 .italic { font-style: italic; font-weight: 400; color: var(--aqua-dk); }
+  .hero .lede {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink-2);
+    max-width: 620px;
+    margin-top: 28px;
+    position: relative;
+  }
+  .hero-meta { display: flex; gap: 48px; margin-top: 56px; position: relative; flex-wrap: wrap; }
+  .hero-meta div { border-left: 2px solid var(--aqua); padding-left: 16px; }
+  .hero-meta .label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--aqua-dk); font-weight: 700; margin-bottom: 4px;
+  }
+  .hero-meta .value { font-size: 15px; color: var(--ink); font-weight: 500; }
+
+  section { padding: 96px 0; }
+  section.alt { background: var(--white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--aqua-dk); font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--aqua); }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.0;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  h2 .italic { font-style: italic; font-weight: 400; color: var(--aqua-dk); }
+  .section-lede {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 56px;
+  }
+
+  .phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .phase {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--aqua);
+    border-radius: 4px;
+    padding: 28px 24px 32px;
+    box-shadow: var(--shadow);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .phase:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .phase .num { font-family: 'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--aqua-dk); margin-bottom: 4px; }
+  .phase .name {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; margin-bottom: 14px;
+  }
+  .phase h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 600; line-height: 1.15;
+    margin-bottom: 16px; color: var(--ink);
+  }
+  .phase ul { list-style: none; }
+  .phase li {
+    font-size: 13px; color: var(--ink-2);
+    padding: 6px 0 6px 16px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .phase li:first-child { border-top: none; padding-top: 0; }
+  .phase li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 6px; height: 6px; background: var(--aqua); border-radius: 50%;
+  }
+  .phase li:first-child::before { top: 8px; }
+  .phase .watch {
+    margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--rule);
+    font-size: 12px; color: var(--muted); font-style: italic;
+  }
+  .phase .watch strong {
+    color: var(--warn); font-style: normal; font-weight: 700; display: block;
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
+  }
+
+  .diag-table {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .diag-row { display: grid; grid-template-columns: 1.4fr 1fr 1.5fr; border-top: 1px solid var(--rule); }
+  .diag-row:first-child { border-top: none; }
+  .diag-row > div { padding: 22px 24px; font-size: 14px; }
+  .diag-row .seeing { color: var(--ink-2); }
+  .diag-row .what {
+    background: var(--aqua-soft);
+    font-family: 'Fraunces', serif;
+    font-style: italic; font-weight: 600;
+    color: var(--ink); font-size: 15px;
+    border-left: 3px solid var(--aqua);
+  }
+  .diag-row .move { color: var(--ink-2); }
+  .diag-head { background: var(--ink); color: var(--white); }
+  .diag-head > div {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; padding: 16px 24px;
+  }
+  .diag-head .what {
+    background: var(--ink-2); border-left: 3px solid var(--aqua);
+    color: var(--white); font-family: 'Inter Tight', sans-serif; font-style: normal;
+  }
+
+  .rule-of-thumb {
+    margin-top: 32px;
+    background: var(--ink); color: var(--white);
+    padding: 36px 40px;
+    border-radius: 4px;
+    border-left: 4px solid var(--aqua);
+  }
+  .rule-of-thumb .label {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--aqua); font-weight: 700; margin-bottom: 10px;
+  }
+  .rule-of-thumb h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px; font-style: italic; font-weight: 400;
+    margin-bottom: 24px; line-height: 1.2;
+  }
+  .rule-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px;
+  }
+  .rule-grid .item .k { font-size: 13px; color: #A5F3FC; margin-bottom: 4px; }
+  .rule-grid .item .v {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 600; color: var(--white);
+  }
+  .rule-grid .item .v::before { content: '→ '; color: var(--aqua); }
+
+  .assess-intro {
+    background: var(--aqua-soft);
+    border-left: 4px solid var(--aqua);
+    padding: 24px 32px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .assess-intro strong { color: var(--ink); }
+
+  .name-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 18px 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+  }
+  .name-row label {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); font-weight: 700;
+  }
+  .name-row input {
+    border: none;
+    background: transparent;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--rule);
+    outline: none;
+    transition: border-color .15s;
+  }
+  .name-row input:focus { border-bottom-color: var(--aqua); }
+
+  .category {
+    margin-bottom: 40px;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .cat-head {
+    padding: 22px 28px;
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .cat-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--aqua-dk);
+    line-height: 1;
+  }
+  .cat-name {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--ink); font-weight: 700;
+  }
+  .cat-name span {
+    display: block; font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 18px; text-transform: none; letter-spacing: 0;
+    color: var(--muted); font-weight: 400; margin-top: 2px;
+  }
+
+  .question {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 20px 28px;
+    border-top: 1px solid var(--rule);
+  }
+  .question:first-of-type { border-top: none; }
+  .q-text { font-size: 15px; color: var(--ink-2); }
+
+  .options { display: flex; gap: 8px; flex-shrink: 0; }
+  .opt {
+    cursor: pointer;
+    padding: 10px 16px;
+    border: 1px solid var(--aqua-line);
+    background: var(--white);
+    color: var(--muted);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    border-radius: 3px;
+    transition: all .15s ease;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .opt:hover { border-color: var(--aqua); color: var(--aqua-dk); }
+  .opt.selected[data-val="2"] { background: var(--good); border-color: var(--good); color: var(--white); }
+  .opt.selected[data-val="1"] { background: var(--warn); border-color: var(--warn); color: var(--white); }
+  .opt.selected[data-val="0"] { background: var(--bad); border-color: var(--bad); color: var(--white); }
+
+  .results-panel {
+    margin-top: 56px;
+    background: var(--ink);
+    color: var(--white);
+    border-radius: 4px;
+    padding: 48px 56px;
+    border-left: 4px solid var(--aqua);
+    position: relative;
+    overflow: hidden;
+  }
+  .results-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 90% 10%, rgba(6,182,212,0.22), transparent 50%);
+    pointer-events: none;
+  }
+  .results-panel .label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--aqua); font-weight: 700; margin-bottom: 12px;
+    position: relative;
+  }
+  .results-panel h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 36px; font-weight: 600;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .results-panel h3 .italic { font-style: italic; font-weight: 400; color: #A5F3FC; }
+
+  .score-display {
+    display: flex; align-items: baseline; gap: 12px;
+    margin: 24px 0 32px;
+    position: relative;
+  }
+  .score-num {
+    font-family: 'Fraunces', serif;
+    font-size: 88px; font-weight: 600; line-height: 1;
+    color: var(--white);
+  }
+  .score-total {
+    font-family: 'Fraunces', serif;
+    font-size: 32px; color: #A5F3FC; font-style: italic;
+  }
+  .score-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .score-fill {
+    height: 100%;
+    background: var(--aqua);
+    width: 0%;
+    transition: width .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .verdict {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-style: italic;
+    color: #CFFAFE; line-height: 1.4;
+    max-width: 640px;
+    position: relative;
+  }
+  .breakdown {
+    margin-top: 36px; padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+    position: relative;
+  }
+  .breakdown .b-item .b-label {
+    font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #A5F3FC; font-weight: 700; margin-bottom: 8px;
+  }
+  .breakdown .b-item .b-bar {
+    height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+  }
+  .breakdown .b-item .b-fill {
+    height: 100%; background: var(--aqua); width: 0%;
+    transition: width .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .breakdown .b-item .b-score {
+    font-family: 'Fraunces', serif;
+    font-size: 16px; color: var(--white); margin-top: 6px;
+  }
+
+  .actions {
+    margin-top: 36px; padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex; gap: 12px; flex-wrap: wrap;
+    position: relative;
+  }
+  .btn {
+    background: var(--aqua);
+    border: 1px solid var(--aqua);
+    color: var(--ink);
+    padding: 14px 24px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all .15s ease;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { background: #22D3EE; border-color: #22D3EE; transform: translateY(-1px); }
+  .btn.ghost {
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .btn.ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+  .btn[disabled] { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn[disabled]:hover { background: var(--aqua); border-color: var(--aqua); transform: none; }
+
+  .send-note {
+    margin-top: 16px;
+    font-size: 12px;
+    color: #A5F3FC;
+    font-style: italic;
+    position: relative;
+  }
+
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--rule);
+    padding: 40px 0;
+    text-align: center;
+  }
+  footer p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  @media (max-width: 900px) {
+    .phases { grid-template-columns: 1fr 1fr; }
+    .diag-row { grid-template-columns: 1fr; }
+    .diag-head { display: none; }
+    .diag-row .what { border-left-width: 4px; }
+    .rule-grid { grid-template-columns: 1fr; }
+    .breakdown { grid-template-columns: 1fr 1fr; }
+    .question { grid-template-columns: 1fr; }
+    .hero-meta { gap: 24px; }
+  }
+  @media (max-width: 600px) {
+    .phases { grid-template-columns: 1fr; }
+    .wrap { padding: 0 20px; }
+    section { padding: 64px 0; }
+    .results-panel { padding: 32px 28px; }
+    .score-num { font-size: 64px; }
+    .name-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand-bar">itGenius · Leadership Retro</div>
+    <h1>Leader's<br><span class="italic">Coaching Guide</span></h1>
+    <p class="lede">A practical companion to the Leadership SOP — tools you can use in the room, not theory to read later.</p>
+    <div class="hero-meta">
+      <div><div class="label">Tool 01</div><div class="value">The 1:1 Walkthrough</div></div>
+      <div><div class="label">Tool 02</div><div class="value">What Am I Dealing With?</div></div>
+      <div><div class="label">Tool 03</div><div class="value">Self-Assessment</div></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Tool 01</div>
+    <h2>The 1:1 <span class="italic">Walkthrough</span></h2>
+    <p class="section-lede">Use this as a live guide during your fortnightly 1:1. Four phases. What to say, what to listen for, and what to avoid.</p>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="num">i.</div>
+        <div class="name">Open</div>
+        <h3>Make space</h3>
+        <ul>
+          <li>"How are you?"</li>
+          <li>"What's on your mind or heart?"</li>
+          <li>Pause. Let them fill the silence.</li>
+        </ul>
+        <div class="watch"><strong>Watch out for</strong>Jumping in with your own agenda. Rushing past "how are you" as a formality.</div>
+      </div>
+
+      <div class="phase">
+        <div class="num">ii.</div>
+        <div class="name">Dig</div>
+        <h3>Find the real thing</h3>
+        <ul>
+          <li>"And what else?"</li>
+          <li>"What's the most challenging part for you?"</li>
+          <li>Reflect briefly between questions.</li>
+        </ul>
+        <div class="watch"><strong>Watch out for</strong>Offering solutions too early. Interpreting instead of reflecting.</div>
+      </div>
+
+      <div class="phase">
+        <div class="num">iii.</div>
+        <div class="name">Unlock</div>
+        <h3>Hand it back</h3>
+        <ul>
+          <li>"What ideas do you have?"</li>
+          <li>"What do you want?"</li>
+          <li>"If you say yes, what do you say no to?"</li>
+        </ul>
+        <div class="watch"><strong>Watch out for</strong>Giving your answer disguised as a question. Rescuing when they hesitate.</div>
+      </div>
+
+      <div class="phase">
+        <div class="num">iv.</div>
+        <div class="name">Close</div>
+        <h3>Anchor the learning</h3>
+        <ul>
+          <li>"How can I help?"</li>
+          <li>"What was most valuable for you?"</li>
+          <li>Log notes in the Consultant File.</li>
+        </ul>
+        <div class="watch"><strong>Watch out for</strong>Saying yes to everything. Skipping the final question — it's what anchors the learning.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Tool 02</div>
+    <h2>What Am I <span class="italic">Dealing With?</span></h2>
+    <p class="section-lede">When something isn't right, use this to decide your next move. Diagnose first. Move second.</p>
+
+    <div class="diag-table">
+      <div class="diag-row diag-head">
+        <div>What you're seeing</div>
+        <div class="what">What it probably is</div>
+        <div>Your move</div>
+      </div>
+      <div class="diag-row">
+        <div class="seeing">Misses the point of tasks even after explanation. Doesn't grasp the role.</div>
+        <div class="what">GWC: "Get It" missing</div>
+        <div class="move">Clarify the role. Better PD, break tasks down, offer training. If it persists after support, consider role adjustment or a developmental plan.</div>
+      </div>
+      <div class="diag-row">
+        <div class="seeing">Capable but disengaged. Avoiding tasks. No initiative or enthusiasm.</div>
+        <div class="what">GWC: "Want It" missing</div>
+        <div class="move">Explore motivation in a 1:1. Discuss career aspirations. Check if the role still fits. Consider enrichment or a move.</div>
+      </div>
+      <div class="diag-row">
+        <div class="seeing">Wants to succeed but keeps making errors, missing deadlines, or producing subpar work.</div>
+        <div class="what">GWC: "Capacity" missing</div>
+        <div class="move">Targeted training and coaching. Adjust workload. Check if resources are adequate.</div>
+      </div>
+      <div class="diag-row">
+        <div class="seeing">A specific behaviour is off — tardiness, missed agreements, attitude — but it's recent or occasional.</div>
+        <div class="what">Gradient: early stage</div>
+        <div class="move">Notice silently first. If it repeats, inquire privately: "Is everything alright?" Assume innocence.</div>
+      </div>
+      <div class="diag-row">
+        <div class="seeing">You've already had the conversation and the behaviour hasn't changed.</div>
+        <div class="what">Gradient: escalating</div>
+        <div class="move">Offer support, restate expectations explicitly, log an AFI. If it still persists, move to Management Action (IR, formal warning, or PIP).</div>
+      </div>
+      <div class="diag-row">
+        <div class="seeing">Performance has dropped significantly across multiple areas and informal coaching hasn't worked.</div>
+        <div class="what">Active Management</div>
+        <div class="move">Intervene directly. Audit their tasks, stabilise immediate risks, create a short-term "Get Well" plan with daily check-ins for 1–2 weeks.</div>
+      </div>
+      <div class="diag-row">
+        <div class="seeing">Overwhelmed, stressed, or burning out — but the work quality is still there.</div>
+        <div class="what">Coaching moment</div>
+        <div class="move">Use the questions in your 1:1. This isn't a performance issue — it's a leadership moment. Help them find boundaries and energy.</div>
+      </div>
+    </div>
+
+    <div class="rule-of-thumb">
+      <div class="label">Rule of thumb</div>
+      <h3>Start with a question, not a directive.</h3>
+      <div class="rule-grid">
+        <div class="item"><div class="k">Knows how but isn't doing it</div><div class="v">Gradient</div></div>
+        <div class="item"><div class="k">Doesn't know how</div><div class="v">GWC</div></div>
+        <div class="item"><div class="k">Struggling but willing</div><div class="v">Coach</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Tool 03 · Interactive</div>
+    <h2>Leader <span class="italic">Self-Assessment</span></h2>
+    <p class="section-lede">Score yourself honestly. This isn't a report card — it's a mirror. Use it to spot where you're drifting before your team feels it.</p>
+
+    <div class="assess-intro">
+      For each behaviour, tap <strong>Doing Well</strong>, <strong>Needs Work</strong>, or <strong>Not Doing</strong>. Your score updates live. When you're done, hit <strong>Send Results</strong> to email them to Justine.
+    </div>
+
+    <div class="name-row">
+      <label for="leaderName">Your name</label>
+      <input type="text" id="leaderName" placeholder="So Justine knows whose results these are" />
+    </div>
+
+    <div id="assessment"></div>
+
+    <div class="results-panel" id="results">
+      <div class="label">Your Score</div>
+      <h3>The <span class="italic">mirror</span></h3>
+      <div class="score-display">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-total">/ 28</div>
+      </div>
+      <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+      <p class="verdict" id="verdict">Tap your way through the questions above to see where you stand.</p>
+
+      <div class="breakdown" id="breakdown"></div>
+
+      <div class="actions">
+        <button class="btn" id="sendBtn" onclick="sendResults()" disabled>✉  Send Results to Justine</button>
+        <button class="btn ghost" onclick="resetAssessment()">Reset</button>
+      </div>
+      <p class="send-note" id="sendNote">Finish all questions to enable sending. Opens your email app with results pre-filled — just hit send.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>itGenius · Leader's Coaching Guide · For internal use</p>
+  </div>
+</footer>
+
+<script>
+  const RECIPIENT = 'justine.goltiano@itgenius.com';
+
+  const categories = [
+    {
+      num: 'i.',
+      name: 'Presence & Listening',
+      sub: 'Are you actually in the room?',
+      questions: [
+        "I am fully present in 1:1s — no multitasking, no phone, no Slack.",
+        "I let them speak first and resist the urge to lead with my agenda.",
+        "I reflect back what I hear before moving to the next question.",
+        "I use silence as a tool, not something to fill."
+      ]
+    },
+    {
+      num: 'ii.',
+      name: 'Coaching vs Fixing',
+      sub: 'Whose problem are you solving?',
+      questions: [
+        "I ask questions before offering solutions.",
+        "My team members leave 1:1s with their own next steps, not mine.",
+        "I catch myself when I'm rescuing and step back."
+      ]
+    },
+    {
+      num: 'iii.',
+      name: 'Accountability & Agreements',
+      sub: 'Are people clear on what they signed up for?',
+      questions: [
+        "I use SORT when making agreements, not just assigning tasks.",
+        "I address issues early using the Gradient, not saving them up.",
+        "Nobody on my team would be surprised by feedback in a formal review."
+      ]
+    },
+    {
+      num: 'iv.',
+      name: 'Rhythm & Consistency',
+      sub: 'Does your week have a heartbeat?',
+      questions: [
+        "All my 1:1s happened this fortnight and Consultant Files are updated.",
+        "I run daily huddles consistently, not just when I remember.",
+        "I know the current capacity status of every person on my team."
+      ]
+    },
+    {
+      num: 'v.',
+      name: 'Energy & Self-Management',
+      sub: 'Are you leading from a full tank?',
+      questions: [
+        "I can name what drains and fuels my energy this week.",
+        "I'm taking intentional breaks, not just grinding until I crash.",
+        "I show up to coaching conversations regulated, not reactive."
+      ]
+    }
+  ];
+
+  const totalQuestions = categories.reduce((s, c) => s + c.questions.length, 0);
+  const maxScore = totalQuestions * 2;
+  const answers = {};
+
+  function buildAssessment() {
+    const root = document.getElementById('assessment');
+    let html = '';
+    let qIdx = 0;
+    categories.forEach((cat, ci) => {
+      html += `<div class="category">
+        <div class="cat-head">
+          <div class="cat-num">${cat.num}</div>
+          <div class="cat-name">${cat.name}<span>${cat.sub}</span></div>
+        </div>`;
+      cat.questions.forEach((q) => {
+        const id = `q${qIdx}`;
+        html += `<div class="question">
+          <div class="q-text">${q}</div>
+          <div class="options" data-q="${id}" data-cat="${ci}">
+            <div class="opt" data-val="2">Doing Well</div>
+            <div class="opt" data-val="1">Needs Work</div>
+            <div class="opt" data-val="0">Not Doing</div>
+          </div>
+        </div>`;
+        qIdx++;
+      });
+      html += `</div>`;
+    });
+    root.innerHTML = html;
+
+    document.querySelectorAll('.options').forEach(group => {
+      group.querySelectorAll('.opt').forEach(opt => {
+        opt.addEventListener('click', () => {
+          group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          const qid = group.dataset.q;
+          const ci = parseInt(group.dataset.cat);
+          answers[qid] = {
+            val: parseInt(opt.dataset.val),
+            cat: ci,
+            label: opt.textContent
+          };
+          updateScore();
+        });
+      });
+    });
+
+    buildBreakdown();
+  }
+
+  function buildBreakdown() {
+    const wrap = document.getElementById('breakdown');
+    wrap.innerHTML = categories.map((c, i) => `
+      <div class="b-item">
+        <div class="b-label">${c.name}</div>
+        <div class="b-bar"><div class="b-fill" id="bfill-${i}"></div></div>
+        <div class="b-score" id="bscore-${i}">— / ${c.questions.length * 2}</div>
+      </div>
+    `).join('');
+  }
+
+  function updateScore() {
+    let total = 0;
+    let answered = 0;
+    const catScores = categories.map(c => ({ score: 0, max: c.questions.length * 2, answered: 0 }));
+
+    Object.values(answers).forEach(a => {
+      total += a.val;
+      answered++;
+      catScores[a.cat].score += a.val;
+      catScores[a.cat].answered++;
+    });
+
+    document.getElementById('scoreNum').textContent = total;
+    document.getElementById('scoreFill').style.width = `${(total / maxScore) * 100}%`;
+
+    const verdict = document.getElementById('verdict');
+    const sendBtn = document.getElementById('sendBtn');
+    const sendNote = document.getElementById('sendNote');
+
+    if (answered === 0) {
+      verdict.textContent = 'Tap your way through the questions above to see where you stand.';
+    } else if (answered < totalQuestions) {
+      verdict.textContent = `${answered} of ${totalQuestions} answered. Keep going — the picture isn't complete yet.`;
+    } else {
+      const pct = (total / maxScore) * 100;
+      const notDoing = Object.values(answers).filter(a => a.val === 0).length;
+      const needsWork = Object.values(answers).filter(a => a.val === 1).length;
+
+      if (pct >= 85) {
+        verdict.textContent = `Strong rhythm. You're leading from a full tank. Pick the one item still flagged and protect what's working.`;
+      } else if (pct >= 65) {
+        verdict.textContent = `Solid foundation with room to sharpen. ${needsWork} item${needsWork===1?'':'s'} marked "Needs Work" — pick one category and focus there for the next two weeks.`;
+      } else if (pct >= 40) {
+        verdict.textContent = `You're drifting. ${notDoing} "Not Doing" item${notDoing===1?'':'s'} is your priority. Share this with your own leader for accountability.`;
+      } else {
+        verdict.textContent = `Time to reset. The fundamentals need attention before anything else moves. Start with Presence — everything else compounds from there.`;
+      }
+    }
+
+    if (answered === totalQuestions) {
+      sendBtn.disabled = false;
+      sendNote.textContent = 'Ready to send. Opens your email app with results pre-filled — just hit send.';
+    } else {
+      sendBtn.disabled = true;
+      sendNote.textContent = `Finish all questions to enable sending (${answered}/${totalQuestions} done).`;
+    }
+
+    catScores.forEach((cs, i) => {
+      const fill = document.getElementById(`bfill-${i}`);
+      const score = document.getElementById(`bscore-${i}`);
+      if (cs.answered === 0) {
+        fill.style.width = '0%';
+        score.textContent = `— / ${cs.max}`;
+      } else {
+        fill.style.width = `${(cs.score / cs.max) * 100}%`;
+        score.textContent = `${cs.score} / ${cs.max}`;
+      }
+    });
+  }
+
+  function sendResults() {
+    const name = document.getElementById('leaderName').value.trim() || 'Anonymous Leader';
+    const total = Object.values(answers).reduce((s, a) => s + a.val, 0);
+    const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const catScores = categories.map(c => ({ name: c.name, score: 0, max: c.questions.length * 2 }));
+    Object.values(answers).forEach(a => { catScores[a.cat].score += a.val; });
+
+    let body = `Leader Self-Assessment Results\n`;
+    body += `==============================\n\n`;
+    body += `Name: ${name}\n`;
+    body += `Date: ${date}\n`;
+    body += `Overall Score: ${total} / ${maxScore}\n\n`;
+
+    body += `CATEGORY BREAKDOWN\n`;
+    body += `------------------\n`;
+    catScores.forEach(c => {
+      body += `${c.name}: ${c.score} / ${c.max}\n`;
+    });
+    body += `\n`;
+
+    body += `DETAILED ANSWERS\n`;
+    body += `----------------\n`;
+    categories.forEach((cat, ci) => {
+      body += `\n${cat.name}\n`;
+      cat.questions.forEach((q, qi) => {
+        const globalIdx = categories.slice(0, ci).reduce((s, c) => s + c.questions.length, 0) + qi;
+        const ans = answers[`q${globalIdx}`];
+        body += `  - ${q}\n    => ${ans ? ans.label : '-'}\n`;
+      });
+    });
+
+    const notDoing = Object.values(answers).filter(a => a.val === 0).length;
+    const needsWork = Object.values(answers).filter(a => a.val === 1).length;
+    body += `\nFOCUS AREAS\n`;
+    body += `-----------\n`;
+    body += `Not Doing: ${notDoing} item(s) - priority for the next two weeks\n`;
+    body += `Needs Work: ${needsWork} item(s)\n`;
+
+    const subject = `Leader Self-Assessment - ${name} - ${date}`;
+    const mailto = `mailto:${RECIPIENT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  }
+
+  function resetAssessment() {
+    Object.keys(answers).forEach(k => delete answers[k]);
+    document.querySelectorAll('.opt.selected').forEach(o => o.classList.remove('selected'));
+    document.getElementById('leaderName').value = '';
+    updateScore();
+    document.getElementById('assessment').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  buildAssessment();
+</script>
+
+</body>
+</html>
